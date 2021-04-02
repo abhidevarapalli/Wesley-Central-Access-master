@@ -216,7 +216,10 @@ namespace WCAProject.Controllers
             inquiryDetailsViewModel.Inquiry = clientService;
             inquiryDetailsViewModel.Notes = await _context.Clineitems.Where(ci => ci.ClientServiceId == clientService.ClientServiceId).OrderByDescending(ci => ci.ldate).ToListAsync();
             inquiryDetailsViewModel.ScaScreen = await _context.ScaScreen.FirstOrDefaultAsync(m => m.ClientServiceId == clientService.ClientServiceId);
-
+            inquiryDetailsViewModel.Note = new Clineitem{ClientServiceId = inquiryDetailsViewModel.Inquiry.ClientServiceId};
+            inquiryDetailsViewModel.Note.ldate = DateTime.Now;
+            inquiryDetailsViewModel.Notes = await _context.Clineitems.Where(ci => ci.ClientServiceId == inquiryDetailsViewModel.Inquiry.ClientServiceId).OrderByDescending(ci => ci.ldate).ToListAsync();
+          
             return View(inquiryDetailsViewModel);
         }
 
@@ -228,6 +231,7 @@ namespace WCAProject.Controllers
         public async Task<IActionResult> Edit(int id, InquiryFormViewModel inquiryFormViewModel)
         {
             ClientService cs = inquiryFormViewModel.Inquiry;
+            Clineitem ci = inquiryFormViewModel.Note;
             ScaScreen sca = inquiryFormViewModel.ScaScreen;
 
             if (id != cs.ClientServiceId)
@@ -241,6 +245,8 @@ namespace WCAProject.Controllers
                 {
                     _context.Update(cs);
                     sca.ClientServiceId = cs.ClientServiceId;
+                    _context.Add(ci);
+                    await _context.SaveChangesAsync();
                     await _context.SaveChangesAsync();
                     _context.Update(sca);
                     TempData["Alert"] = "Saved Changes to Inquiry";

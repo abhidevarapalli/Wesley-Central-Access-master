@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Inquiry</h1>
+<h1>Edit Inquiry Testing</h1>
 <hr />
 <div class="accordion" id="client-accordion">
   <div class="card">
@@ -509,35 +509,38 @@
   </div>
 </div>
 
+
+<h4>Notes:</h4>
+  
+
+ 
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row rounded p-3 mb-2 table-active text-dark">
+      <div class="col-md-3 col-md-offset-1">
+        <label asp-for="Note.ZworkerId" class="control-label"></label>
+        <select asp-for="Note.ZworkerId" class ="form-control" asp-items="ViewBag.ZworkerId"></select>
+      </div>
+      <div class="col-md-3 col-md-offset-1">
+        <label asp-for="Note.ldate" class="control-label"></label>
+        <input asp-for="Note.ldate" class="form-control" />
+        <span asp-validation-for="Note.ldate" class="text-danger"></span>
+      </div>
+    <div class="col-md-6 col-md-offset-1">
+        <label asp-for="Note.action" class="control-label"></label>
+        <textarea asp-for="Note.action" class="form-control"></textarea>
+        <span asp-validation-for="Note.action" class="text-danger"></span>
+    </div>
+  </div>
+  
 <div class = "container" align = "right">
     <a type="button" class="btn wfs-light-blue text-white" data-toggle="modal" data-target="#scaModal">View SCA Screen</a>
     <input type="submit" value="Save Inquiry" class="btn wfs-green" />
     <a type = "button" class="btn btn-secondary" asp-controller="ClientServices" asp-route-id="@Model.Inquiry.ClientServiceId" asp-action="Details">Back to Inquiry</a>
 </div>
 
-<h4>Notes</h4>
-  @foreach (var item in Model.Notes)
-  {
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row rounded p-3 mb-2 table-active text-dark">
-      <div class="col-md-3 col-md-offset-1">
-        <label asp-for="@item.ZworkerId" class="control-label"></label>
-        <select asp-for="@item.ZworkerId" class ="form-control" asp-items="ViewBag.ZworkerId" disabled></select>
-      </div>
-      <div class="col-md-3 col-md-offset-1">
-        <label asp-for="@item.ldate" class="control-label"></label>
-        <input asp-for="@item.ldate" class="form-control" disabled/>
-        <span asp-validation-for="@item.ldate" class="text-danger"></span>
-      </div>
-    <div class="col-md-6 col-md-offset-1">
-        <label asp-for="@item.action" class="control-label"></label>
-        <textarea asp-for="@item.action" class="form-control" disabled></textarea>
-        <span asp-validation-for="@item.action" class="text-danger"></span>
-    </div>
-  </div>
-
-  }
 </form>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
