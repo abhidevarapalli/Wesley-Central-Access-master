@@ -38,6 +38,7 @@ namespace WCAProject.Controllers
             var clineitem = await _context.Clineitems
                 .Include(c => c.ClientService)
                 .Include(c => c.Zworker)
+                .Include(c => c.Zaction)
                 .FirstOrDefaultAsync(m => m.ClineitemId == id);
             if (clineitem == null)
             {
@@ -53,6 +54,8 @@ namespace WCAProject.Controllers
 
             ViewData["ClientServiceId"] = new SelectList(_context.ClientServices, "ClientServiceId", "ClientServiceId");
             ViewData["ZworkerId"] = new SelectList(_context.Zworker.OrderBy(m => m.worker), "ZworkerId", "worker");
+            ViewData["ZactionId"] = new SelectList(_context.Zaction.OrderBy(m => m.action), "ZactionId", "action");
+
 
             InquiryFormViewModel inquiryFormViewModel = new InquiryFormViewModel();
             inquiryFormViewModel.Inquiry = await _context.ClientServices.FirstOrDefaultAsync(cs => cs.ClientServiceId == csid);
@@ -82,6 +85,8 @@ namespace WCAProject.Controllers
             }
             ViewData["ClientServiceId"] = new SelectList(_context.ClientServices, "ClientServiceId", "ClientServiceId", ci.ClientServiceId);
             ViewData["ZworkerId"] = new SelectList(_context.Zworker.OrderBy(m => m.worker), "ZworkerId", "worker", ci.ZworkerId);
+            ViewData["ZactionId"] = new SelectList(_context.Zaction.OrderBy(m => m.action), "ZactionId", "action", ci.ZactionId);
+
             return View(inquiryFormViewModel);
         }
 
@@ -100,6 +105,8 @@ namespace WCAProject.Controllers
             }
             ViewData["ClientServiceId"] = new SelectList(_context.ClientServices, "ClientServiceId", "ClientServiceId", clineitem.ClientServiceId);
             ViewData["ZworkerId"] = new SelectList(_context.Zworker.OrderBy(m => m.worker), "ZworkerId", "worker", clineitem.ZworkerId);
+            ViewData["ZactionId"] = new SelectList(_context.Zaction.OrderBy(m => m.action), "ZactionId", "action", clineitem.ZactionId);
+
 
             InquiryFormViewModel inquiryFormViewModel = new InquiryFormViewModel();
             inquiryFormViewModel.Inquiry = await _context.ClientServices.FirstOrDefaultAsync(cs => cs.ClientServiceId == clineitem.ClientServiceId);
@@ -144,6 +151,8 @@ namespace WCAProject.Controllers
             }
             ViewData["ClientServiceId"] = new SelectList(_context.ClientServices, "ClientServiceId", "ClientServiceId", ci.ClientServiceId);
             ViewData["ZworkerId"] = new SelectList(_context.Zworker.OrderBy(m => m.worker), "ZworkerId", "worker", ci.ZworkerId);
+            ViewData["ZactionId"] = new SelectList(_context.Zaction.OrderBy(m => m.action), "ZactionId", "action", ci.ZactionId);
+
             return View(inquiryFormViewModel);
         }
 
@@ -158,6 +167,7 @@ namespace WCAProject.Controllers
             var clineitem = await _context.Clineitems
                 .Include(c => c.ClientService)
                 .Include(c => c.Zworker)
+                .Include(c => c.Zaction)
                 .FirstOrDefaultAsync(m => m.ClineitemId == id);
             if (clineitem == null)
             {

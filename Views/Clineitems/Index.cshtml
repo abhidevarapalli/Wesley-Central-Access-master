@@ -19,6 +19,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Zworker)
             </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Zaction)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ldate)
             </th>
@@ -36,6 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Zworker.ZworkerId)
+            </td>
+               <td>
+                @Html.DisplayFor(modelItem => item.Zaction.ZactionId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ldate)
